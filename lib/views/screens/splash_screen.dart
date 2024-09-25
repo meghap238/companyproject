@@ -99,12 +99,8 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     super.initState();
     initSplash();
   }
-
   Future<void> initSplash() async {
-    // First get the device ID and store it locally in SharedPreferences
     await getUniqueDeviceId();
-
-    // Call the API after the device ID is retrieved and stored
     int? status = await ApiService().checkUser(deviceId: dvc);
 
     // Check status and navigate accordingly
@@ -115,19 +111,21 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
           MaterialPageRoute(builder: (context) => LoginWithMpinScreen()),
         );
       });
-    } else if (status == 400) {
+    }
+    else {
       Future.delayed(Duration(seconds: 3), () {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => LoginScreen()),
         );
       });
-    } else {
-      // Handle other statuses or errors (optional)
-      print('Unexpected status: $status');
     }
+// else {
+    //     // Handle other statuses or errors (optional)
+    //     print('Unexpected status: $status');
+    //   }
+    // }
   }
-
   Future<void> getUniqueDeviceId() async {
     var deviceInfo = DeviceInfoPlugin();
     SharedPreferences prefs = await SharedPreferences.getInstance();

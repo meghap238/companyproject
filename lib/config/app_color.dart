@@ -7,6 +7,12 @@ abstract class AppColor {
   static Color textClr = Color(0xff626262);
   static Color textFiledbg = Color(0xffF6F7FB);
   static Color textblack3A = Color(0xff3A3A3A);
+  static Color gameTItleclr = Color(0xff11305C);
+  static Color gameTimeClr = Color(0xff696969);
+  static Color redShadeClr = Color(0xffC90B0B);
+  static Color greenClr = Color(0xff30B12D);
+
+
 
 
 }

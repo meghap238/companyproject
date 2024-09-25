@@ -9,6 +9,25 @@ class LocalData {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     return await sharedPreferences.setString(valueSharedPreferences, value);
   }
+  static Future saveMobileNum(value) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    return await sharedPreferences.setInt('mobile', value);
+  }
+ static getMobile() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //Return int
+    int? intValue = prefs.getInt('mobile');
+    return intValue;
+  }
+
+  static Future saveToken(value) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    return await sharedPreferences.setString('token', value);
+  }
+  static Future saveUserId(value) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    return await sharedPreferences.setString('userId', value);
+  }
   static Future<String> loadSavedValue() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
       String value = prefs.getString(valueSharedPreferences) ?? "";

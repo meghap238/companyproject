@@ -1,19 +1,19 @@
-class AllGameModel{
+class AllGameStaticModel{
   String? gameName;
   String? img;
-  AllGameModel( {
+  AllGameStaticModel( {
     required this.gameName,
     required this.img,
   });
 }
 
-List<AllGameModel> allGmData = [
-  AllGameModel(gameName: 'Single Digit', img: 'assets/images/singleDigit.svg'),
-  AllGameModel(gameName: 'Single Digit Bulk', img: 'assets/images/singledigitbulk.svg'),
-  AllGameModel(gameName: 'Single Pana', img: 'assets/images/singlePana.svg'),
-  AllGameModel(gameName: 'Single Pana Bulk', img: 'assets/images/singlepanabulk.svg'),
-  AllGameModel(gameName: 'Double Pana', img: 'assets/images/doublepana.svg'),
-  AllGameModel(gameName: 'Double Pana Bulk', img: 'assets/images/doublepanabulk.svg'),
-  AllGameModel(gameName: 'Triple Pana', img: 'assets/images/triplepana.svg'),
-  AllGameModel(gameName: 'Triple Pana Bulk', img: 'assets/images/triplepanabulk.svg'),
+List<AllGameStaticModel> allGmData = [
+  AllGameStaticModel(gameName: 'Single Digit', img: 'assets/images/singleDigit.svg'),
+  AllGameStaticModel(gameName: 'Single Digit Bulk', img: 'assets/images/singledigitbulk.svg'),
+  AllGameStaticModel(gameName: 'Single Pana', img: 'assets/images/singlePana.svg'),
+  AllGameStaticModel(gameName: 'Single Pana Bulk', img: 'assets/images/singlepanabulk.svg'),
+  AllGameStaticModel(gameName: 'Double Pana', img: 'assets/images/doublepana.svg'),
+  AllGameStaticModel(gameName: 'Double Pana Bulk', img: 'assets/images/doublepanabulk.svg'),
+  AllGameStaticModel(gameName: 'Triple Pana', img: 'assets/images/triplepana.svg'),
+  AllGameStaticModel(gameName: 'Triple Pana Bulk', img: 'assets/images/triplepanabulk.svg'),
 ];

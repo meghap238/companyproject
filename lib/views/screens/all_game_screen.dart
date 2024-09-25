@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../../config/app_color.dart';
 import '../../config/app_style.dart';
 import '../../data/models/all_game_model.dart';
@@ -20,10 +19,10 @@ class _AllGameScreenState extends State<AllGameScreen> {
     return Scaffold(
       body: Stack(
         children: [
-        appbarWidget(context: context,),
-        //SizedBox(height: 30.sp,),
+         appbarWidget(context: context,),
+        SizedBox(height: 30.sp,),
         Padding(
-          padding: EdgeInsets.only(top: 150.sp,).copyWith(left: 15.sp,right: 15.sp),
+          padding: EdgeInsets.only(top: 120.sp,).copyWith(left: 15.sp,right: 15.sp),
           child: GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 4/3.9,mainAxisSpacing: 20.sp,crossAxisSpacing: 20.sp),
             shrinkWrap: true,
@@ -46,12 +45,9 @@ class _AllGameScreenState extends State<AllGameScreen> {
                           SvgPicture.asset('${allGmData[index].img}'),
                           Container(
                             padding: EdgeInsets.symmetric(vertical: 8.sp),
-
                             decoration: BoxDecoration(
                                 color: Colors.white,
-
                                 borderRadius: BorderRadius.all(Radius.circular(10.sp)),
-
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.grey.shade400,
@@ -149,16 +145,15 @@ class _AllGameScreenState extends State<AllGameScreen> {
       ),
     );
   }*/
-
-
    Widget appbarWidget({
     String? title,
     required BuildContext context,
 
   }) {
     return Container(
-      height: MediaQuery.of(context).size.height / 3.5, // Height is dynamic based on screen size
+      height: MediaQuery.of(context).size.height /3.8, // Height is dynamic based on screen size
       decoration: BoxDecoration(
+        image: DecorationImage(image: AssetImage('assets/images/appbarbg.png'),alignment: Alignment.topLeft),
         color: AppColor.bgClr,
         borderRadius: BorderRadius.only(
           bottomRight: Radius.circular(15.sp),
@@ -172,35 +167,24 @@ class _AllGameScreenState extends State<AllGameScreen> {
           children: [
             AppBar(
               backgroundColor: Colors.transparent,
-
         toolbarHeight: 10.sp,
-            ),
-
-            Row(
-              children: [
-        SvgPicture.asset(
-               'assets/images/menuIcon.svg',
-            ),
-                SizedBox(width: 10.sp,),
-                SvgPicture.asset(
-                 'assets/images/logo_login.svg',
-                ),
-        Spacer(),
-                SvgPicture.asset(
-              'assets/images/wallet.svg',
-                ),
-                SizedBox(width: 10.sp,),
-                SvgPicture.asset(
-                  'assets/images/bellIcon.svg',
-                ),
-              ],
             ),
             SizedBox(height: 30.sp),
             Row(
               //   mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SvgPicture.asset(
-                 'assets/images/leftErrowIcon.svg',
+                GestureDetector(
+                  child: Container(
+                    width: 30.sp,
+                    height: 30.sp,
+                    decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        image: DecorationImage(image: AssetImage('assets/images/letwhiteArrow.png'))),
+                  ),
+                  onTap: () {
+                    Navigator.pop(context);
+                    // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen(userId: userId, token: token),));
+                  },
                 ),
                 SizedBox(width: 20.sp,),
                 Text(
@@ -210,8 +194,6 @@ class _AllGameScreenState extends State<AllGameScreen> {
                   textAlign: TextAlign.left,
                   softWrap: true,
                 ),
-
-
               ],
             ),
           ],

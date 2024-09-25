@@ -27,7 +27,7 @@ abstract class Widgets{
     return ElevatedButton(
       style: ButtonStyle(
         backgroundColor: MaterialStatePropertyAll(AppColor.bgClr),
-        elevation: MaterialStatePropertyAll(8),
+        elevation: MaterialStatePropertyAll(7),
         shadowColor: MaterialStatePropertyAll(Colors.green),
       shape: MaterialStatePropertyAll(
           RoundedRectangleBorder(

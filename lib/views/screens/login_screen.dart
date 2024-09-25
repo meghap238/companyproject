@@ -213,7 +213,7 @@ else{
   }
 }
 */
-import 'dart:io';
+
 import 'package:bhau_777/config/app_color.dart';
 import 'package:bhau_777/config/app_style.dart';
 import 'package:bhau_777/data/models/get_otp_model.dart';
@@ -420,11 +420,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   // Fetch OTP response from the API
                   GetLoginModel? otpResponse =
                   await ApiService().getOtp(mobile, dvc!);
+                  await prefs.setInt('mobile', otpResponse!.data.details.mobile);
+                  int? numvber =  prefs.getInt('mobile');
+                  print(numvber);
+               //LocalData.saveMobileNum(otpResponse!.data.details.mobile);
+
                   setState(() => isLoading = false);
                   if (otpResponse?.status == 200) {
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
-                        builder: (context) => OptVerificationScreen(otp: otpResponse!.data.details.otp,),
+                        builder: (context) => OptVerificationScreen(otp: otpResponse!.data.details.otp, isForgot: false,),
                       ),
                     );
                   } else {

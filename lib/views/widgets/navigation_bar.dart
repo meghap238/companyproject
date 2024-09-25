@@ -7,13 +7,14 @@ import 'package:bhau_777/views/screens/passbook_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import '../screens/chat_support_screen.dart';
 import '../screens/profile_screen.dart';
 
 
 class BottomNavigationBarScreen extends StatefulWidget {
-  const BottomNavigationBarScreen({super.key});
+  final token;
+  final id;
+  const BottomNavigationBarScreen({super.key,required this.token, this.id});
   @override
   State<BottomNavigationBarScreen> createState() =>
       _BottomNavigationBarScreenState();
@@ -145,7 +146,7 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
             child: PassbookScreen(),
           ),
           Center(
-            child: HomeScreen(),
+            child: HomeScreen(token: widget.token,id: widget.id,),
           ),
           Center(
             child: FundScreen(),

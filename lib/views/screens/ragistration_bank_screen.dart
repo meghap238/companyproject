@@ -322,6 +322,7 @@ class _RegistrationBlankScreenState extends State<RegistrationBlankScreen> {
                     if (formKey.currentState!.validate()){
                       final prefs = await SharedPreferences.getInstance();
                       String? dvc = await prefs.getString('deviceId');
+                      print(dvc);
                       SignUpModel? otpResponse =
                       await ApiService().singUpApi(name: nameCon.text, deviceId: dvc!, language: languagecon.text, city: cityCon.text, state: stateCon.text);
                       if (otpResponse?.status == 200) {

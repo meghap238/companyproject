@@ -14,10 +14,10 @@ class AppStyle{
       fontFamily: 'Urbanist',
     );
   }
-  static TextStyle textfdTextStyle({Color? color}) {
+  static TextStyle textfdTextStyle({Color? color,double? size, FontWeight? fontWeight }) {
     return  TextStyle(
-      fontSize: 17.sp,
-      fontWeight: FontWeight.w500,
+      fontSize: size ?? 17.sp,
+      fontWeight: fontWeight ?? FontWeight.w500,
       fontFamily: 'Poppins',
       color:color ?? AppColor.textClr,
     );

@@ -8,9 +8,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../config/app_color.dart';
 import '../../config/app_style.dart';
-import '../../data/models/loginwithmpin_screen.dart';
-import '../app_bar_widget.dart';
+import '../../data/local_data.dart';
 import '../widgets/navigation_bar.dart';
+import 'opt_verification_screen.dart';
 
 class LoginWithMpinScreen extends StatefulWidget {
   const LoginWithMpinScreen({super.key});
@@ -44,7 +44,7 @@ class _LoginWithMpinScreenState extends State<LoginWithMpinScreen> {
             child:  Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Spacer(), // Adjust the spacing for alignment
+                Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -82,18 +82,17 @@ class _LoginWithMpinScreenState extends State<LoginWithMpinScreen> {
            // crossAxisAlignment: CrossAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              isFocus
-                  ? Text(
-                  'MPIN',
-                  style: AppStyle.textfdTextStyle(color: AppColor.bgClr)
-              ):
-              SizedBox() ,
+              // isFocus
+              //     ?
+              Text('MPIN', style: AppStyle.textfdTextStyle(color: AppColor.bgClr)),
+              //     :
+              // SizedBox() ,
               TextFormField(
-                onTap: () {
-                  setState(() {
-                    isFocus = false;
-                  });
-                },
+                // onTap: () {
+                //   setState(() {
+                //     isFocus = false;
+                //   });
+                // },
                 maxLength: 4,
                 //focusNode: phoneFocusNode,
                 controller: mpinCon,
@@ -105,17 +104,16 @@ class _LoginWithMpinScreenState extends State<LoginWithMpinScreen> {
                   fontFamily: 'Poppins',
                   color: AppColor.textClr,
                 ),
-                onFieldSubmitted: (value) {
-                  setState(() {
-                    isFocus = true;
-                  });
-                },
-                onSaved: (newValue) {
-                  setState(() {
-                    isFocus = true;
-                  });
-                },
-
+                // onFieldSubmitted: (value) {
+                //   setState(() {
+                //     isFocus = true;
+                //   });
+                // },
+                // onSaved: (newValue) {
+                //   setState(() {
+                //     isFocus = true;
+                //   });
+                // },
                 decoration: InputDecoration(
                   counterText: '',
                   filled:  isFocus,
@@ -163,13 +161,17 @@ class _LoginWithMpinScreenState extends State<LoginWithMpinScreen> {
 
               ),
               SizedBox(height: 20.sp,),
-              Text('Do you want to forgot your MPIN',style:AppStyle.appBarTitleStyle(color: AppColor.bgClr,fontSize: 16.sp,fontWeight: FontWeight.w400),textAlign: TextAlign.center,),
+              GestureDetector(
+                  child: Text('Do you want to forgot your MPIN',style:AppStyle.appBarTitleStyle(color: AppColor.bgClr,fontSize: 16.sp,fontWeight: FontWeight.w400),textAlign: TextAlign.center,),
+              onTap: () {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const OptVerificationScreen(otp: 1234, isForgot: true,),));
+              },
+
+              ),
               SizedBox(height: 20.sp,),
               InkWell(
                 onTap: () {
-
                 },child: SvgPicture.asset('assets/images/finger_print.svg'))
-
             ],
           ),
         ),
@@ -184,22 +186,21 @@ class _LoginWithMpinScreenState extends State<LoginWithMpinScreen> {
             Widgets.getOtpBtn(
               data: 'Next',
               onPressed: () async {
-                if (formkey.currentState!.validate()) {
+                if (formkey.currentState!.validate()){
                   final prefs = await SharedPreferences.getInstance();
                   String? dvc = await prefs.getString('deviceId');
-                  LoginWithMpinModel? otpResponse =
-                      await ApiService().loginWithMpin( mpin: mpinCon.text, deviceId: dvc!, firebaseToken: '789889656',);
-               if(otpResponse?.status ==200){
-                 Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BottomNavigationBarScreen(),));
+                  LoginWithMpinModel? otpResponse = await ApiService().loginWithMpin( mpin: mpinCon.text, deviceId: dvc!, firebaseToken: '789889656',);
+                  //LocalData.saveUserId(otpResponse?.data?.id);
+                  prefs.setString('userId', "${otpResponse?.data?.id}");
+                  if(otpResponse?.status ==200){
+                 Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BottomNavigationBarScreen(token: otpResponse?.data?.token,id: otpResponse?.data?.id,),));
                }else{
                  print('faild to login');
                }
-
                 }
               },),
             SizedBox(height: 30.sp),
             Widgets.trustedFromUserFunc()
-            //Widgets.trustedFromUserFunc()
           ],
         ),
       ),

@@ -1,10 +1,13 @@
 import 'dart:convert';
+import 'package:bhau_777/data/models/all_game_model.dart';
 import 'package:bhau_777/data/models/registration_model.dart';
+import 'package:bhau_777/views/screens/all_game_screen.dart';
 import 'package:http/http.dart' as http;
-
 import 'package:bhau_777/data/models/get_otp_model.dart';
-
 import '../models/check_user_model.dart';
+import '../models/forgot_mpin_model.dart';
+import '../models/forgot_verify_otp_model.dart';
+import '../models/game_list_model.dart';
 import '../models/loginwithmpin_screen.dart';
 import '../models/singup_model.dart';
 import '../models/verified_otp_model.dart';
@@ -37,10 +40,6 @@ var m =  CheckUserModel.fromJson(jsonDecode(response.body)).status;
       print(e);
     }
   }
-
-
-
-
   Future<GetLoginModel?> getOtp(int number , String deviceId) async{
     try{
       var url = Uri.parse('$baseUrl/user/getOtp');
@@ -121,7 +120,6 @@ var m =  CheckUserModel.fromJson(jsonDecode(response.body)).status;
       print(e);
     }
   }
-
   Future<VerifiedOtpModel?> verifiedOtpApi({required int otp , required String deviceId}) async{
     try{
       var url = Uri.parse('$baseUrl/user/varifiedOtp');
@@ -138,6 +136,54 @@ var m =  CheckUserModel.fromJson(jsonDecode(response.body)).status;
       if(response.statusCode == 200){
         print(response.body);
         return VerifiedOtpModel.fromJson(jsonDecode(response.body));
+      }
+      else{
+        throw Exception('faild to login');
+      }
+    }catch(e){
+      print(e);
+    }
+  }
+  Future<forgotMpinModel?> forgotMPin({required int mobile , required String deviceId}) async{
+    try{
+      var url = Uri.parse('$baseUrl/user/forgotMpinSendOtp');
+      var response = await http.post(url,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: jsonEncode(<String, dynamic>{
+          "deviceId": deviceId,
+          "mobile": mobile
+        },),
+      );
+      print(response.body);
+      if(response.statusCode == 200){
+        print(response.body);
+        return forgotMpinModel.fromJson(jsonDecode(response.body));
+      }
+      else{
+        throw Exception('faild to login');
+      }
+    }catch(e){
+      print(e);
+    }
+  }
+  Future<FPasswordVerifyOtpModel?> FVerifyforgot({required int otp , required String deviceId}) async{
+    try{
+      var url = Uri.parse('$baseUrl/user/forgotPasswordVerifyOtp');
+      var response = await http.post(url,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: jsonEncode(<String, dynamic>{
+          "deviceId": deviceId,
+          "otp": otp
+        },),
+      );
+      print(response.body);
+      if(response.statusCode == 200){
+        print(response.body);
+        return FPasswordVerifyOtpModel.fromJson(jsonDecode(response.body));
       }
       else{
         throw Exception('faild to login');
@@ -173,8 +219,32 @@ var m =  CheckUserModel.fromJson(jsonDecode(response.body)).status;
       print(e);
     }
   }
-
-
+  Future<AllGameModel?> getListForGame({required String userId,required String token}) async{
+    try{
+      var url = Uri.parse('$baseUrl/user/games/allGames');
+      var response = await http.post(url,
+        headers: {
+          "Content-Type": "application/json",
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body: jsonEncode(<String, dynamic>{
+          "userId": userId,
+        },),
+      );
+      print(token);
+      print(response.body);
+      if(response.statusCode == 200){
+        print(response.body);
+        return AllGameModel.fromJson(jsonDecode(response.body));
+      }
+      else{
+        throw Exception('faild to login');
+      }
+    }catch(e){
+      print(e);
+    }
+  }
 }
 // class ApiService {
 //   Future<GetOtpModel?> getOtp(String number, String deviceId) async {
